@@ -6,7 +6,7 @@ const COPStory = ({ onClose }) => {
   return (
     <StoryTemplate
       onClose={onClose}
-      title="COP Presidents and Climate Policies"
+      title="When words mean more than actions."
       paragraphs={[
         "This year, the COP28 community has the remarkable pleasure of President Sultan Al Jaber heading up the conference of parties in the UAE, or as Dr Hamza Hamouchene more aptly puts it, conference of polluters. Born in 1973, the UK/US-educated president brings COP to the Middle East for the second time as governments look to create policy for the next 30 years to mitigate climate change.",
 

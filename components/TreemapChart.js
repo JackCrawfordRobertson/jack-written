@@ -6,24 +6,25 @@ import * as echarts from "echarts/core";
 import { TreemapChart as EChartsTreemap } from "echarts/charts";
 import { TooltipComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
+import { cn } from "@/lib/utils"; // ShadCN helper
+import { Card } from "@/components/ui/card"; // ShadCN component
+
+// Import Story Components
 import COPStory from "@/components/Stories/COPStory";
 import OilStory from "@/components/Stories/OilStory";
-import CarbonStory from "@/components/Stories/CarbonStory";
+import GenocideStory from "@/components/Stories/GenocideStory";
+import LongWay from "@/components/Stories/LongWay";
 
 echarts.use([EChartsTreemap, TooltipComponent, CanvasRenderer]);
 
 const TreemapChart = () => {
   const [selectedStory, setSelectedStory] = useState(null);
-  const [chartHeight, setChartHeight] = useState("75vh");
-  const [fontSize, setFontSize] = useState(20);
   const [isDesktop, setIsDesktop] = useState(true);
+  const [sortedData, setSortedData] = useState([]);
 
   useEffect(() => {
     const updateSize = () => {
-      const screenWidth = window.innerWidth;
-      setChartHeight(screenWidth < 768 ? "50vh" : "70vh");
-      setFontSize(screenWidth < 768 ? 14 : 20);
-      setIsDesktop(screenWidth >= 768);
+      setIsDesktop(window.innerWidth >= 768);
     };
 
     updateSize();
@@ -32,6 +33,42 @@ const TreemapChart = () => {
   }, []);
 
   const colors = ["#3496D3", "#2B85C3", "#2474B2", "#1D63A2", "#165392"];
+
+  const data = [
+    {
+      name: "COP presidents and going 'Back to caves'",
+      value: 40,
+      storyId: "cop-story",
+      subheading: "Political influence on climate action",
+      itemStyle: { color: colors[0] },
+    },
+    {
+      name: "When words mean more than actions.",
+      value: 30,
+      storyId: "oil-story",
+      subheading: "Their role in global emissions",
+      itemStyle: { color: colors[1] },
+    },
+    {
+      name: "The Emissions of a Genocide",
+      value: 20,
+      storyId: "genocide-story",
+      subheading: "The impact on future generations",
+      itemStyle: { color: colors[2] },
+    },
+    {
+      name: "The Long Way Round",
+      value: 20,
+      storyId: "long-way",
+      subheading: "The impact on future generations",
+      itemStyle: { color: colors[2] },
+    },
+  ];
+
+  // Sort nodes by value (largest to smallest) to maintain visual scaling
+  useEffect(() => {
+    setSortedData([...data].sort((a, b) => b.value - a.value));
+  }, []);
 
   const option = {
     tooltip: { show: false },
@@ -46,23 +83,23 @@ const TreemapChart = () => {
         breadcrumb: { show: false },
         label: {
           show: true,
-          position: "insideTopLeft", // Aligns text to top-left
-          fontSize: fontSize,
+          position: "insideTopLeft",
+          fontSize: 20,
           fontWeight: "bold",
           color: "#fff",
-          overflow: "break", // Ensures proper word wrapping
-          wordBreak: "break-word", // Prevents cutting words in half
-          width: "100%", // Allows full-width wrapping
-          lineHeight: isDesktop ? 24 : 18, // Adjusts spacing
+          overflow: "break",
+          wordBreak: "break-word",
+          width: "100%",
+          lineHeight: 24,
           rich: {
             title: {
-              fontSize: fontSize,
+              fontSize: 20,
               fontWeight: "bold",
               color: "#fff",
               lineHeight: 24,
             },
             subheading: {
-              fontSize: isDesktop ? fontSize - 4 : 0, // Only visible on desktop
+              fontSize: 16,
               fontWeight: "normal",
               color: "rgba(255, 255, 255, 0.8)",
               lineHeight: 20,
@@ -70,9 +107,7 @@ const TreemapChart = () => {
           },
           formatter: (params) => {
             const { name, subheading } = params.data;
-            return isDesktop
-              ? `{title|${name}}\n\n{subheading|${subheading}}` // Forces a clean line break between title & subheading
-              : `{title|${name}}`; // Mobile: Only title, no subheading
+            return `{title|${name}}\n\n{subheading|${subheading}}`;
           },
         },
         itemStyle: {
@@ -85,53 +120,52 @@ const TreemapChart = () => {
         right: 0,
         top: 0,
         bottom: 0,
-        data: [
-          {
-            name: "COP presidents and going 'Back to caves'",
-            value: 40,
-            storyId: "cop-story",
-            subheading: "Political influence on climate action",
-            itemStyle: { color: colors[0] },
-          },
-          {
-            name: "Oil Companies and Their Global Influence",
-            value: 30,
-            storyId: "oil-story",
-            subheading: "Their role in global emissions",
-            itemStyle: { color: colors[1] },
-          },
-          {
-            name: "Carbon Emissions and the Future of Global Energy Policies",
-            value: 20,
-            storyId: "carbon-story",
-            subheading: "The impact on future generations",
-            itemStyle: { color: colors[2] },
-          },
-          
-        ],
+        data,
       },
     ],
   };
 
   return (
-    <div className="relative w-full" style={{ height: chartHeight }}>
-      <ReactEChartsCore
-        echarts={echarts}
-        option={option}
-        style={{ width: "100%", height: "100%" }}
-        onEvents={{
-          click: (params) => {
-            if (params.data?.storyId) {
-              setSelectedStory(params.data.storyId);
-            }
-          },
-        }}
-      />
+    <div className="relative w-full">
+      {/* Desktop: ECharts Treemap */}
+      {isDesktop ? (
+        <ReactEChartsCore
+          echarts={echarts}
+          option={option}
+          style={{ width: "100%", height: "70vh" }}
+          onEvents={{
+            click: (params) => {
+              if (params.data?.storyId) {
+                setSelectedStory(params.data.storyId);
+              }
+            },
+          }}
+        />
+      ) : (
+        /* Mobile: Stacked ShadCN Blocks */
+        <div className="flex flex-col gap-2">
+          {sortedData.map((item, index) => (
+            <Card
+              key={index}
+              className="w-full p-4 rounded-lg text-white"
+              style={{
+                backgroundColor: item.itemStyle.color,
+                height: `${50 + item.value}px`, // Scales height based on node value
+              }}
+              onClick={() => setSelectedStory(item.storyId)}
+            >
+              <p className="text-lg font-bold leading-tight">{item.name}</p>
+            </Card>
+          ))}
+        </div>
+      )}
 
       {/* Open Correct Story Component Based on ID */}
       {selectedStory === "cop-story" && <COPStory onClose={() => setSelectedStory(null)} />}
       {selectedStory === "oil-story" && <OilStory onClose={() => setSelectedStory(null)} />}
-      {selectedStory === "carbon-story" && <CarbonStory onClose={() => setSelectedStory(null)} />}
+      {selectedStory === "genocide-story" && <GenocideStory onClose={() => setSelectedStory(null)} />}
+      {selectedStory === "long-way" && <LongWay onClose={() => setSelectedStory(null)} />}
+
     </div>
   );
 };
