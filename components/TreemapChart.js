@@ -16,12 +16,14 @@ const TreemapChart = () => {
   const [selectedStory, setSelectedStory] = useState(null);
   const [chartHeight, setChartHeight] = useState("75vh");
   const [fontSize, setFontSize] = useState(20);
+  const [isDesktop, setIsDesktop] = useState(true);
 
   useEffect(() => {
     const updateSize = () => {
       const screenWidth = window.innerWidth;
       setChartHeight(screenWidth < 768 ? "50vh" : "70vh");
       setFontSize(screenWidth < 768 ? 14 : 20);
+      setIsDesktop(screenWidth >= 768);
     };
 
     updateSize();
@@ -44,9 +46,34 @@ const TreemapChart = () => {
         breadcrumb: { show: false },
         label: {
           show: true,
+          position: "insideTopLeft", // Aligns text to top-left
           fontSize: fontSize,
           fontWeight: "bold",
           color: "#fff",
+          overflow: "break", // Ensures proper word wrapping
+          wordBreak: "break-word", // Prevents cutting words in half
+          width: "100%", // Allows full-width wrapping
+          lineHeight: isDesktop ? 24 : 18, // Adjusts spacing
+          rich: {
+            title: {
+              fontSize: fontSize,
+              fontWeight: "bold",
+              color: "#fff",
+              lineHeight: 24,
+            },
+            subheading: {
+              fontSize: isDesktop ? fontSize - 4 : 0, // Only visible on desktop
+              fontWeight: "normal",
+              color: "rgba(255, 255, 255, 0.8)",
+              lineHeight: 20,
+            },
+          },
+          formatter: (params) => {
+            const { name, subheading } = params.data;
+            return isDesktop
+              ? `{title|${name}}\n\n{subheading|${subheading}}` // Forces a clean line break between title & subheading
+              : `{title|${name}}`; // Mobile: Only title, no subheading
+          },
         },
         itemStyle: {
           borderColor: "none",
@@ -59,9 +86,28 @@ const TreemapChart = () => {
         top: 0,
         bottom: 0,
         data: [
-          { name: "COP Presidents", value: 40, storyId: "cop-story", itemStyle: { color: colors[0] } },
-          { name: "Oil Companies", value: 30, storyId: "oil-story", itemStyle: { color: colors[1] } },
-          { name: "Carbon Emissions", value: 20, storyId: "carbon-story", itemStyle: { color: colors[2] } },
+          {
+            name: "COP presidents and going 'Back to caves'",
+            value: 40,
+            storyId: "cop-story",
+            subheading: "Political influence on climate action",
+            itemStyle: { color: colors[0] },
+          },
+          {
+            name: "Oil Companies and Their Global Influence",
+            value: 30,
+            storyId: "oil-story",
+            subheading: "Their role in global emissions",
+            itemStyle: { color: colors[1] },
+          },
+          {
+            name: "Carbon Emissions and the Future of Global Energy Policies",
+            value: 20,
+            storyId: "carbon-story",
+            subheading: "The impact on future generations",
+            itemStyle: { color: colors[2] },
+          },
+          
         ],
       },
     ],
