@@ -10,10 +10,11 @@ import { cn } from "@/lib/utils"; // ShadCN helper
 import { Card } from "@/components/ui/card"; // ShadCN component
 
 // Import Story Components
-import COPStory from "@/components/Stories/COPStory";
-import OilStory from "@/components/Stories/OilStory";
-import GenocideStory from "@/components/Stories/GenocideStory";
-import LongWay from "@/components/Stories/LongWay";
+import COPPresidents from "./Stories/COPPresidents/COPPresidents";
+import COPStory from "@/components/Stories/COPStory/COPStory";
+import GenocideStory from "@/components/Stories/GenocideStory/GenocideStory";
+import LongWay from "@/components/Stories/LongWay/LongWay";
+import Test from "@/components/Stories/SocialWar/SocialWar";
 
 echarts.use([EChartsTreemap, TooltipComponent, CanvasRenderer]);
 
@@ -36,16 +37,16 @@ const TreemapChart = () => {
 
   const data = [
     {
-      name: "COP presidents and going 'Back to caves'",
+      name: "When words mean more than actions'",
       value: 40,
       storyId: "cop-story",
       subheading: "Political influence on climate action",
       itemStyle: { color: colors[0] },
     },
     {
-      name: "When words mean more than actions.",
+      name: "COP presidents and going 'Back to caves'",
       value: 30,
-      storyId: "oil-story",
+      storyId: "oil-presidents",
       subheading: "Their role in global emissions",
       itemStyle: { color: colors[1] },
     },
@@ -162,7 +163,7 @@ const TreemapChart = () => {
 
       {/* Open Correct Story Component Based on ID */}
       {selectedStory === "cop-story" && <COPStory onClose={() => setSelectedStory(null)} />}
-      {selectedStory === "oil-story" && <OilStory onClose={() => setSelectedStory(null)} />}
+      {selectedStory === "oil-presidents" && <COPPresidents onClose={() => setSelectedStory(null)} />}
       {selectedStory === "genocide-story" && <GenocideStory onClose={() => setSelectedStory(null)} />}
       {selectedStory === "long-way" && <LongWay onClose={() => setSelectedStory(null)} />}
 

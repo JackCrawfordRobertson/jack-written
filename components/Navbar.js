@@ -28,7 +28,7 @@ export default function Navbar() {
             <NavigationMenuItem>
               <Button asChild variant="ghost">
                 <a href="https://jack-robertson.co.uk" target="_blank" rel="noopener noreferrer" className="no-underline">
-                  My Website
+                  Main Website
                 </a>
               </Button>
             </NavigationMenuItem>
