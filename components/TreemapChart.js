@@ -8,6 +8,7 @@ import { TooltipComponent } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
 import { cn } from "@/lib/utils"; // ShadCN helper
 import { Card } from "@/components/ui/card"; // ShadCN component
+import { AnimatePresence } from "framer-motion";
 
 // Import Story Components
 import COPPresidents from "./Stories/COPPresidents/COPPresidents";
@@ -160,13 +161,14 @@ const TreemapChart = () => {
           ))}
         </div>
       )}
+<AnimatePresence mode="wait">
 
       {/* Open Correct Story Component Based on ID */}
       {selectedStory === "cop-story" && <COPStory onClose={() => setSelectedStory(null)} />}
       {selectedStory === "oil-presidents" && <COPPresidents onClose={() => setSelectedStory(null)} />}
       {selectedStory === "genocide-story" && <GenocideStory onClose={() => setSelectedStory(null)} />}
       {selectedStory === "long-way" && <LongWay onClose={() => setSelectedStory(null)} />}
-
+      </AnimatePresence>
     </div>
   );
 };

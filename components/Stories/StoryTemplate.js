@@ -8,12 +8,12 @@ import Footer from "@/components/Footer";
 
 const StoryTemplate = ({ onClose, title, date, content = [] }) => {
   return (
-    <AnimatePresence>
+  
       <motion.div
         initial={{ y: "100%", opacity: 0 }}
         animate={{ y: "0%", opacity: 1 }}
         exit={{ y: "100%", opacity: 0 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
+        transition={{ duration: 0.7, ease: "easeInOut" }}
         className="fixed inset-0 bg-card text-card-foreground z-50 flex flex-col"
       >
         {/* Header */}
@@ -27,8 +27,7 @@ const StoryTemplate = ({ onClose, title, date, content = [] }) => {
           <Button
             onClick={onClose}
             variant="destructive"
-            className="rounded-full w-10 h-10 p-0 flex items-center justify-center"
-          >
+            className="rounded-full w-10 h-10 p-0 flex items-center justify-center">
             ✕
           </Button>
         </div>
@@ -77,7 +76,7 @@ const StoryTemplate = ({ onClose, title, date, content = [] }) => {
           </div>
         </div>
       </motion.div>
-    </AnimatePresence>
+
   );
 };
 

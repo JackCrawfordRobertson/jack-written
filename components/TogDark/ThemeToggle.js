@@ -24,7 +24,7 @@ const ThemeToggle = () => {
       aria-label="Toggle theme"
       className="border border-border rounded-lg p-2 bg-card"
     >
-      {isDark ? <Sun className="w-5 h-5 text-primary" /> : <Moon className="w-5 h-5 text-secondary" />}
+      {isDark ? <Sun className="w-5 h-5 text-primary" /> : <Moon className="w-5 h-5 text-primary" />}
     </Toggle>
   );
 };

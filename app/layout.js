@@ -1,3 +1,5 @@
+
+
 "use client";
 
 import { Inter } from "next/font/google";
@@ -12,8 +14,11 @@ const inter = Inter({
   display: "swap",
 });
 
+
+
 export default function RootLayout({ children }) {
-  const pathname = usePathname(); // Ensures Framer Motion tracks route changes
+  // Key the AnimatePresence by pathname for page-to-page transitions
+  const pathname = usePathname();
 
   return (
     <html lang="en">
@@ -21,9 +26,15 @@ export default function RootLayout({ children }) {
         className={`${inter.variable} font-sans antialiased bg-background text-foreground`}
       >
         <ThemeProvider>
-          
-          <AnimatePresence mode="wait">
-            <main className="min-h-screen">{children}</main>
+          {/* 
+            AnimatePresence around the main content.
+            If you want page transitions, 
+            set a key on the element that changes (e.g. pathname).
+          */}
+          <AnimatePresence mode="wait" initial={false}>
+            <main key={pathname} className="min-h-screen">
+              {children}
+            </main>
           </AnimatePresence>
         </ThemeProvider>
       </body>
