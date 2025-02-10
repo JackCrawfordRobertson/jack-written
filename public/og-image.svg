@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #3696d2;
+        stroke: #231f20;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" x="-15.99" y="-9.49" width="1225.62" height="617.36"/>
+  <g>
+    <g id="Center_Cirkle" data-name="Center Cirkle">
+      <circle class="cls-2" cx="575.87" cy="318.98" r="67.6"/>
+    </g>
+    <g id="Cirkel1">
+      <circle class="cls-2" cx="672.52" cy="93.8" r="50.84"/>
+    </g>
+    <g id="Cirkel4">
+      <circle class="cls-2" cx="376.17" cy="478.31" r="50.84"/>
+    </g>
+    <g id="Cirkel2">
+      <circle class="cls-2" cx="832.92" cy="256.31" r="41.18"/>
+    </g>
+    <g id="Cirkel5">
+      <circle class="cls-2" cx="411.22" cy="158.59" r="41.02"/>
+    </g>
+    <g id="Cirkel3">
+      <circle class="cls-2" cx="644.91" cy="517.62" r="40.28"/>
+    </g>
+    <g id="Arms">
+      <rect class="cls-2" x="572.09" y="270.9" width="264.58" height="33.52" transform="translate(-48.09 175.01) rotate(-13.7)"/>
+      <rect class="cls-2" x="499.1" y="185.6" width="253.91" height="33.52" transform="translate(192.65 697.39) rotate(-66.71)"/>
+      <rect class="cls-2" x="476.78" y="123.85" width="33.52" height="229.86" transform="translate(-21.88 425.69) rotate(-45.75)"/>
+      <rect class="cls-2" x="342.7" y="383.07" width="261.17" height="33.52" transform="translate(-145.92 378.74) rotate(-38.24)"/>
+      <rect class="cls-2" x="593.64" y="313.14" width="33.52" height="210.29" transform="translate(-103.5 223.63) rotate(-19.17)"/>
+    </g>
+  </g>
+</svg>
